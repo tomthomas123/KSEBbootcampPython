@@ -88,7 +88,7 @@ while True:
         print("Total amount: ",totalAmount)
 
         sql = "INSERT INTO `bill`(`consumer_id`, `month`, `year`, `bill`, `paid_status`, `billdate`, `total_units`) VALUES (%s,%s,%s,%s,%s,now(),%s)"
-        data = (str(customer_id),str(month),str(year),totalAmount,'0',str(result[0]))
+        data = (str(customer_id),str(month),str(year),totalAmount,'0',str(result))
         mycursor.execute(sql,data)
         mydb.commit()
         print("Bill inserted successfully.")
