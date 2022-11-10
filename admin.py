@@ -100,7 +100,12 @@ while True:
         mycursor.execute(sql)
         result = mycursor.fetchall()
         print(tabulate(result,headers=['consumer_name','consumer_place','month','year','bill','paid_status','billdate','total_units','duedate','invoice'],tablefmt = "psql"))
-
+    elif(choice==8):
+        print('Top 2 high bill')
+        sql = "SELECT c.consumer_name,c.consumer_place,b.`bill`, b.`total_units` FROM `bill` b JOIN consumer c ON b.consumer_id=c.id ORDER BY b.`bill`DESC LIMIT 2"
+        mycursor.execute(sql)
+        result = mycursor.fetchall()
+        print(tabulate(result,headers=['consumer_name','consumer_place','bill', 'total_units']))
 
         
 
