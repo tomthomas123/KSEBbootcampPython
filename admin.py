@@ -95,10 +95,16 @@ while True:
             mydb.commit()
        
     elif(choice == 7):
-      print("")
+        print("view the bill which had generated ")
+        sql = "SELECT  c.consumer_name,c.consumer_place,b.`month`, b.`year`, b.`bill`, b.`paid_status`, b.`billdate`, b.`total_units`, b.`duedate`, b.`invoice` FROM `bill` b JOIN consumer c ON b.consumer_id=c.id"
+        mycursor.execute(sql)
+        result = mycursor.fetchall()
+        print(tabulate(result,headers=['consumer_name','consumer_place','month','year','bill','paid_status','billdate','total_units','duedate','invoice'],tablefmt = "psql"))
+
+
         
 
 
 
-    elif choice==8:
+    elif choice==9:
         break
