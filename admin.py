@@ -54,5 +54,16 @@ while True:
         mycursor.execute(sql)
         mydb.commit()
         print("Data updated successfully")
+    elif(choice == 5):
+        print("View All Consumer selected")
+        sql = "SELECT `consumer_id`, `consumer_name`, `consumer_phone`, `consumer_place`, `consumer_email` FROM `consumer`  "
+        mycursor.execute(sql)
+        result = mycursor.fetchall()
+        for i in result:
+            print(i)
+    elif(choice == 6):
+        print("Generate Bill selected")
+    elif(choice == 7):
+        print("View Bill selected")
     elif choice==8:
         break
