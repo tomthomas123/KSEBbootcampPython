@@ -16,7 +16,8 @@ while True:
              5. view all consmer
              6. generate bill
              7. view bill
-             8. Exit""")
+             8. view top 2 high bill
+             9. Exit""")
     choice =int(input("Enter your option : "))
     if choice==1:
         print("add consumer selected")
@@ -68,10 +69,11 @@ while True:
         customer_id = input('Enter the customer id : ')
         sql = "SELECT `id` FROM `consumer` WHERE `consumer_id`='"+customer_id+"'"
         mycursor.execute(sql)
-        result = mycursor.fetchall()
+        result = mycursor.fetchone()
         dates = date.today()
         year = dates.year
         month = dates.month
+        
 
         sql = "SELECT SUM(`unit`) FROM `usages` WHERE `user_id`= '"+str(result[0])+"' AND MONTH(`date`)='"+str(month)+"' AND YEAR(`date`)= '"+str(year)+"'"
 
@@ -80,6 +82,19 @@ while True:
         
         
         
+        
+        print("Total Unit used : ",result[0])
+        totalAmount = int(result[0])*5
+        print("Total amount: ",totalAmount)
+
+        sql = "INSERT INTO `bill`(`consumer_id`, `month`, `year`, `bill`, `paid_status`, `billdate`, `total_units`) VALUES (%s,%s,%s,%s,%s,now(),%s)"
+        data = (str(customer_id),str(month),str(year),totalAmount,'0',str(result[0]))
+        mycursor.execute(sql,data)
+        mydb.commit()
+        print("Bill inserted successfully.")
+    elif(choice == 7):
+       
+        print("View Bill selected")
         totalunit = result[0]
         print("Total Unit used : ",totalunit)
         totalAmount = int(totalunit)*5
@@ -89,9 +104,6 @@ while True:
         data = (str(customer_id),str(month),str(year),totalAmount,'0',str(totalunit))
         mycursor.execute(sql,data)
         mydb.commit()
-        print("Bill inserted successfully.")
-    elif(choice == 7):
-        print("View Bill selected")
 
         
 
